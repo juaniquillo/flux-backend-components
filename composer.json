@@ -18,17 +18,19 @@
     ],
     "require": {
         "php": "^8.3",
-        "illuminate/support": "^12.0||^13.0"
-    },
-"require-dev": {
+        "illuminate/support": "^12.0||^13.0",
+        "juaniquillo/laravel-backend-component": "^0.8.1"
+},
+    "require-dev": {
         "larastan/larastan": "^3.9",
-        "laravel/pint": "^1.29",
         "laravel/pao": "^1.0",
+        "laravel/pint": "^1.29",
         "orchestra/testbench": "^10.0||^11.0",
         "pestphp/pest": "^4.6||^5.0",
         "pestphp/pest-plugin-laravel": "^4.1||^5.0",
         "pestphp/pest-plugin-type-coverage": "^4.0||^5.0",
-        "phpstan/extension-installer": "^1.4"
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -64,9 +66,12 @@
         ],
         "lint:check": [
             "vendor/bin/pint --parallel --test"
-        ],
+],
         "analyse": [
-            "vendor/bin/phpstan analyse"
+            "vendor/bin/phpstan analyse --memory-limit=1G"
+        ],
+        "test:larastan": [
+            "vendor/bin/phpstan analyse --memory-limit=1G"
         ],
         "test:types": [
             "vendor/bin/pest --type-coverage --min=100"
@@ -74,8 +79,8 @@
         "test:unit": [
             "vendor/bin/pest --parallel"
         ],
-        "test": [
-            "@analyse",
+        "qa": [
+            "@test:larastan",
             "@lint:check",
             "@test:types",
             "@test:unit"
@@ -83,8 +88,8 @@
         "clear": [
             "@php vendor/bin/testbench package:purge-skeleton --ansi"
         ]
-    },
-"extra": {
+},
+    "extra": {
         "laravel": {
             "providers": [
                 "Juaniquillo\\FluxBackendComponents\\FluxBackendComponentsServiceProvider"
