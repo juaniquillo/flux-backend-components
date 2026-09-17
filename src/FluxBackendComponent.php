@@ -29,7 +29,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
         IsBackendComponent,
         IsThemeable;
 
-    private const UTILITY_VIEW = 'backend-component::_utilities.resolve-third-party-component';
+    private const string UTILITY_VIEW = 'backend-component::_utilities.resolve-third-party-component';
 
     public function __construct(
         private string|BackedEnum $name,
