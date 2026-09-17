@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Juaniquillo\FluxBackendComponents;
 
+use BackedEnum;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\View\ComponentAttributeBag;
 use Juaniquillo\BackendComponents\Components\DefaultAttributeBag;
@@ -31,7 +32,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
     private const string UTILITY_VIEW = 'backend-component::_utilities.resolve-third-party-component';
 
     public function __construct(
-        private string|FluxComponentEnum $name,
+        private string|BackedEnum $name,
         private ThemeManager $themeManager = new DefaultThemeManager,
     ) {}
 
@@ -50,7 +51,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
         return 'flux::';
     }
 
-    public function getName(): string
+    public function getName(): int|string
     {
         $name = $this->name;
 

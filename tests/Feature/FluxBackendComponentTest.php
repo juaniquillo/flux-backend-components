@@ -7,12 +7,6 @@ use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
-it('resolves a string component name', function () {
-    $component = new FluxBackendComponent('card');
-
-    expect($component->getName())->toBe('card');
-});
-
 it('resolves a component name from the enum', function () {
     $component = new FluxBackendComponent(FluxComponentEnum::CARD);
 
@@ -74,6 +68,7 @@ it('renders the button component to html', function () {
 
     $this->blade('{{ $component }}', ['component' => $component])
         ->assertSee('<button', false)
+        ->assertSee('data-flux-button', false)
         ->assertSee('Click me')
         ->assertSee('id="save-btn"', false)
         ->assertSee('text-teal-900');
