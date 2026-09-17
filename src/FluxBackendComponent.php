@@ -80,7 +80,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
             'content' => $this->processContent()->toArray(),
             'path' => $this->getComponentPath(),
             'theme' => [
-                'manager' => get_class($this->themeManager),
+                'manager' => $this->themeManager::class,
                 'themes' => $this->getThemes(),
                 'path' => $this->themeManager->getDefaultPath(),
                 'realPath' => $this->themeManager->getThemePath(),

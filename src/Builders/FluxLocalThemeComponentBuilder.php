@@ -15,8 +15,6 @@ class FluxLocalThemeComponentBuilder implements StaticBuilder
 {
     public static function make(string|BackedEnum $name): Htmlable|CompoundComponent
     {
-        $builder = new FluxBackendComponent($name, new LocalThemeManager);
-
-        return $builder;
+        return new FluxBackendComponent($name, new LocalThemeManager);
     }
 }

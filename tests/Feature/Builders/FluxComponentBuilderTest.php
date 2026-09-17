@@ -23,6 +23,15 @@ it('resolves local themes with the local theme builder', function () {
         ->and($component->getName())->toBe('button');
 });
 
+it('compiles themes from the app local theme path', function () {
+    $component = FluxLocalThemeComponentBuilder::make(FluxComponentEnum::BUTTON)
+        ->setTheme('color', 'success');
+
+    $component->getThemeManager()->setDefaultPath(__DIR__.'/../../fixtures/views/_themes/tailwind');
+
+    expect($component->compileTheme())->toBe('text-violet-900');
+});
+
 it('renders a builder component to html', function () {
     $component = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
         ->setContent('Click me');

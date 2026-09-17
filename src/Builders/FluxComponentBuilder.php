@@ -14,8 +14,6 @@ class FluxComponentBuilder implements StaticBuilder
 {
     public static function make(string|BackedEnum $name): Htmlable|CompoundComponent
     {
-        $builder = new FluxBackendComponent($name);
-
-        return $builder;
+        return new FluxBackendComponent($name);
     }
 }
