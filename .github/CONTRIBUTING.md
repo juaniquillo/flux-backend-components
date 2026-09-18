@@ -1,43 +1,28 @@
-# Contribution Guide
+# Contributing
 
-Thank you for considering contributing to Flux Backend Components! Please review the following guidelines before submitting a pull request.
+Thanks for considering a contribution! Changes are accepted via pull requests only — direct pushes to `main` are blocked.
 
-For significant changes, please open an issue first so we can discuss the approach.
+For significant changes, please open an issue first so the approach can be discussed. We follow [SemVer](https://semver.org/), so keep each pull request focused with a coherent commit history.
 
-## Process
+## Workflow
 
-1. Fork the project
-2. Create a new branch
-3. Code, test, commit, and push
-4. Open a pull request detailing your changes
+1. Create a branch from `main`.
+2. Make your changes.
+3. Ensure `composer qa` is fully green (PHPStan, Rector, Pint, type coverage, Pest).
+4. Open a pull request against `main`. CI runs the same `composer` scripts you run locally.
 
-## Guidelines
+## Conventions
 
-- Ensure the coding style passes by running `composer lint`.
-- Send a coherent commit history, making sure each commit in your pull request is meaningful.
-- You may need to [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) to avoid merge conflicts.
-- Please remember that we follow [SemVer](http://semver.org/).
+- Tests reference components through `FluxComponentEnum` / `FluxIconEnum` — never raw component name strings.
+- Test free Flux components only (no PRO components).
+- On Windows, run Pest without `--parallel` (`php vendor/bin/pest`); `composer test:unit` handles this automatically.
 
-## Setup
+## After a Flux upgrade
 
-Clone your fork, then install the dev dependencies:
-
-```bash
-composer install
-```
-
-## Lint
-
-Lint your code:
+If `livewire/flux` adds or renames icons, regenerate the icon enum and commit the result:
 
 ```bash
-composer lint
+composer icons:enum
 ```
 
-## Tests
-
-Run all tests:
-
-```bash
-composer test
-```
+The `FluxIconEnumTest` sync test will tell you when a regen is needed.
