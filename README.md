@@ -115,7 +115,7 @@ For the dynamic form (`<flux:icon name="…">`), use `FluxComponentEnum::ICON` w
 
 ### Tables
 
-`FluxUITableUtil` builds a complete `<flux:table>` tree from head/body arrays. Cells accept plain values, component instances, `CellBag` objects (for per-cell themes and attributes), or `['content' => …, 'theme' => …, 'attributes' => …]` arrays:
+`FluxUITableUtil` is a helper that builds a complete `<flux:table>` tree from plain head/body arrays — the fastest path for data-driven tables. Cells accept plain values, component instances, `CellBag` objects (for per-cell themes and attributes), or `['content' => …, 'theme' => …, 'attributes' => …]` arrays:
 
 ```php
 use Juaniquillo\BackendComponents\Utils\CellBag;
@@ -141,6 +141,32 @@ $table = FluxUITableUtil::make(
 ```
 
 Per-section themes are available via `setTableThemes()`, `setThThemes()`, `setTrThemes()`, and `setTdThemes()`.
+
+For full control, tables can also be composed by hand with `FluxBackendComponent` — the helper above is shorthand for this:
+
+```php
+use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
+
+$table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
+    ->setContents([
+        (new FluxBackendComponent(FluxComponentEnum::THEAD))
+            ->setContents([
+                (new FluxBackendComponent(FluxComponentEnum::TH))->setContent('Customer'),
+                (new FluxBackendComponent(FluxComponentEnum::TH))->setContent('Status'),
+            ]),
+        (new FluxBackendComponent(FluxComponentEnum::TBODY))
+            ->setContents([
+                (new FluxBackendComponent(FluxComponentEnum::TR))
+                    ->setContents([
+                        (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Lindsey Aminoff'),
+                        (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Paid'),
+                    ]),
+            ]),
+    ]);
+```
+
+Note the columns go directly inside `THEAD` — it renders its own header row, so no `TR` wrapper is needed there.
 
 ### Themes
 
