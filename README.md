@@ -24,6 +24,8 @@ composer require juaniquillo/flux-backend-components
 
 The package's service provider is discovered automatically by Laravel.
 
+No Tailwind configuration is needed: component styling ships with Flux itself, and app theme files live in your already-scanned `resources/views` directory.
+
 ## Built on Laravel Backend Components
 
 This package is a Flux-flavored adapter over [juaniquillo/laravel-backend-component](https://github.com/juaniquillo/laravel-backend-component) ([Packagist](https://packagist.org/packages/juaniquillo/laravel-backend-component)), which provides the underlying engine: the component model, theme managers, `CellBag`, and the generic `TableUtil`. It is installed automatically as a dependency — no separate setup needed.
@@ -39,6 +41,8 @@ What this package adds on top:
 For the full mechanics (theming file format, serialization, the Blade rendering pipeline, helpers) see the [Laravel Backend Components documentation](https://github.com/juaniquillo/backend-component-docs).
 
 ## Usage
+
+Component props (`variant`, `size`, `sortable`, …) are passed as attributes — see the [Flux documentation](https://fluxui.dev) for each component's available props.
 
 ### Components
 
@@ -156,7 +160,7 @@ Thank you for considering contributing to Flux Backend Components! Please review
 ## Credits
 
 - [Juaniquillo](https://github.com/juaniquillo)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/juaniquillo/flux-backend-components/graphs/contributors)
 
 ## License
 
