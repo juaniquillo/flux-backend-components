@@ -11,7 +11,7 @@ This repository is a Laravel package. Keep the package focused, idiomatic, and e
 
 ## Quick Commands
 
-- Full validation: `composer test`
+- Full validation: `composer qa`
 - Formatting check: `composer lint:check`
 - Static analysis: `composer analyse`
 - Pest tests: `composer test:unit`
