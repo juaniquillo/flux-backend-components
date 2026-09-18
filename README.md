@@ -1,8 +1,6 @@
-<div align="center">
-    <h1>Flux Backend Components</h1>
-</div>
+# Flux Backend Components
 
-<p align="center">
+<p >
     <a href="https://packagist.org/packages/juaniquillo/flux-backend-components"><img src="https://img.shields.io/packagist/v/juaniquillo/flux-backend-components.svg?style=flat-square" alt="Packagist"></a>
     <a href="https://packagist.org/packages/juaniquillo/flux-backend-components"><img src="https://img.shields.io/packagist/php-v/juaniquillo/flux-backend-components.svg?style=flat-square" alt="PHP from Packagist"></a>
     <a href="https://github.com/juaniquillo/flux-backend-components/actions/workflows/ci.yml"><img alt="CI status (main)" src="https://img.shields.io/github/actions/workflow/status/juaniquillo/flux-backend-components/ci.yml?branch=main&label=CI&style=flat-square"></a>
@@ -37,6 +35,8 @@ What this package adds on top:
 - `FluxIconEnum` — every icon bundled with Flux as a standalone component name
 - `FluxUITableUtil` — builds complete Flux tables from head/body arrays
 - `FluxComponentBuilder` / `FluxLocalThemeComponentBuilder` — fluent factories, including app-local theme resolution
+
+For the full mechanics (theming file format, serialization, the Blade rendering pipeline, helpers) see the [Laravel Backend Components documentation](https://github.com/juaniquillo/backend-component-docs).
 
 ## Usage
 
