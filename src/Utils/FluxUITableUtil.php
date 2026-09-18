@@ -18,10 +18,9 @@ use function Juaniquillo\BackendComponents\isComponent;
 /**
  * Builds a complete Flux table component tree from head/body arrays.
  *
- * Per-cell data uses the same shapes as TableUtil, except CellBag cannot hold
- * a FluxBackendComponent (CellBag::$content only accepts int|string|CompoundComponent).
- * Use the ['content' => ..., 'theme' => ..., 'attributes' => ...] array shape
- * for component cells instead.
+ * Per-cell data uses the same shapes as TableUtil: plain values, component
+ * instances, CellBag (which accepts any BackendComponent), or
+ * ['content' => ..., 'theme' => ..., 'attributes' => ...] arrays.
  */
 final class FluxUITableUtil
 {

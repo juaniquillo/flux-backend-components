@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
+use Juaniquillo\BackendComponents\Utils\CellBag;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
+use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 use Juaniquillo\FluxBackendComponents\Utils\FluxUITableUtil;
 
 function makeFluxTableUtil(array $head, array $body): FluxUITableUtil
@@ -75,5 +77,18 @@ it('supports per-cell attributes like variant', function () {
     )->getComponent()->toHtml();
 
     expect($html)->toContain('$49.00')
+        ->toContain('font-medium text-zinc-800');
+});
+
+it('supports flux components inside cell bags', function () {
+    $badge = (new FluxBackendComponent(FluxComponentEnum::BADGE))->setContent('Paid');
+
+    $html = makeFluxTableUtil(
+        head: ['Status'],
+        body: [[new CellBag(content: $badge, attributes: ['variant' => 'strong'])]],
+    )->getComponent()->toHtml();
+
+    expect($html)->toContain('Paid')
+        ->toContain('data-flux-badge')
         ->toContain('font-medium text-zinc-800');
 });
