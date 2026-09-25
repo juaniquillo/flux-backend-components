@@ -130,7 +130,7 @@ final class FluxUITableUtil
     }
 
     /**
-     * @param  array<string, int|string|null>  $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public function setTableAttributes(array $attributes): static
     {
@@ -140,7 +140,7 @@ final class FluxUITableUtil
     }
 
     /**
-     * @param  array<string, int|string|null>  $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public function setColumnsAttributes(array $attributes): static
     {
@@ -291,7 +291,7 @@ final class FluxUITableUtil
     /**
      * @param  int|string|BackendComponent|array<int|string, int|string|BackendComponent>  $contents
      * @param  array<string, string|array<string|int, string>>|null  $theme
-     * @param  array<string, int|string|null>|null  $attributes
+     * @param  array<string, mixed>|null  $attributes
      */
     private function composeComponent(BackedEnum $name, int|array|string|BackendComponent $contents, ?array $theme = null, ?array $attributes = null): FluxBackendComponent
     {
@@ -305,9 +305,26 @@ final class FluxUITableUtil
         }
 
         if ($attributes) {
-            $component->setAttributes($attributes);
+            $this->setComponentAttributes($component, $attributes);
         }
 
         return $component;
+    }
+
+    /**
+     * Scalar values use the conforming attribute channel, anything richer
+     * (booleans, arrays, objects) goes through the mixed content channel.
+     *
+     * @param  array<string, mixed>  $attributes
+     */
+    private function setComponentAttributes(FluxBackendComponent $component, array $attributes): void
+    {
+        foreach ($attributes as $name => $value) {
+            if (is_string($value) || is_int($value) || $value === null) {
+                $component->setAttribute($name, $value);
+            } else {
+                $component->setProp($name, $value);
+            }
+        }
     }
 }
