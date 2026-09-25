@@ -42,7 +42,7 @@ For the full mechanics (theming file format, serialization, the Blade rendering 
 
 ## Usage
 
-Component props (`variant`, `size`, `sortable`, …) are passed as attributes — see the [Flux documentation](https://fluxui.dev) for each component's available props.
+Component props (`variant`, `size`, `sortable`, …) are passed as attributes when scalar, or as props when rich — see the [Flux documentation](https://fluxui.dev) for each component's available props.
 
 ### Components
 
@@ -113,6 +113,19 @@ $icon->setAttribute('variant', 'solid');
 
 For the dynamic form (`<flux:icon name="…">`), use `FluxComponentEnum::ICON` with the icon name as an attribute.
 
+### Props
+
+Scalar values travel as attributes, keeping the base contract intact. Anything richer — booleans, arrays, collections, paginators — travels as props:
+
+```php
+$table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
+    ->setAttribute('id', 'orders')   // scalar attribute
+    ->setProp('bleed', true)         // rich prop
+    ->setProps(['rows' => $orders]); // …or several at once
+```
+
+Props merge into the rendered output (winning over attributes on collision) but stay out of `toArray()`, keeping exports JSON-safe and round-trippable.
+
 ### Tables
 
 `FluxUITableUtil` is a helper that builds a complete `<flux:table>` tree from plain head/body arrays — the fastest path for data-driven tables. Cells accept plain values, component instances, `CellBag` objects (for per-cell themes and attributes), or `['content' => …, 'theme' => …, 'attributes' => …]` arrays:
@@ -167,6 +180,8 @@ $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
 ```
 
 Note the columns go directly inside `THEAD` — it renders its own header row, so no `TR` wrapper is needed there.
+
+Current limitations: per-row `key` values and the table's named `header`/`footer` slots have no builder API yet.
 
 ### Themes
 
