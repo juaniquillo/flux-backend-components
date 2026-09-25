@@ -10,22 +10,25 @@ use Illuminate\View\ComponentAttributeBag;
 use Juaniquillo\BackendComponents\Components\DefaultAttributeBag;
 use Juaniquillo\BackendComponents\Concerns\HasContent;
 use Juaniquillo\BackendComponents\Concerns\HasPath;
+use Juaniquillo\BackendComponents\Concerns\HasProps;
 use Juaniquillo\BackendComponents\Concerns\IsBackendComponent;
 use Juaniquillo\BackendComponents\Concerns\IsThemeable;
 use Juaniquillo\BackendComponents\Contracts\AttributeBag;
 use Juaniquillo\BackendComponents\Contracts\BackendComponent;
 use Juaniquillo\BackendComponents\Contracts\ContentComponent;
 use Juaniquillo\BackendComponents\Contracts\PathComponent;
+use Juaniquillo\BackendComponents\Contracts\PropsComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeComponent;
 use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
 
 use function Juaniquillo\BackendComponents\isBackedEnum;
 
-final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent, ThemeComponent
+final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent, PropsComponent, ThemeComponent
 {
     use HasContent,
         HasPath,
+        HasProps,
         IsBackendComponent,
         IsThemeable;
 
@@ -36,13 +39,6 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
         ThemeManager $themeManager = new DefaultThemeManager,
     ) {
         $this->themeManager = $themeManager;
-    }
-
-    public function setAttribute(string $name, mixed $value): static
-    {
-        $this->attributes[$name] = $value;
-
-        return $this;
     }
 
     /**
@@ -71,6 +67,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
             $this->processContent(),
             $this->compileTheme(),
             $this->getComponentPath(),
+            props: $this->getProps(),
         );
     }
 
@@ -93,7 +90,7 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
     public function toHtml(): string
     {
         $path = $this->getComponentPath();
-        $attributes = $this->getAttributeBag()->getAttributes();
+        $attributes = $this->getAttributeBag()->getAttributesAndProps();
         $attributeBag = new ComponentAttributeBag($attributes);
         $content = $this->processContent();
 
