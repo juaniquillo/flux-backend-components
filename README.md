@@ -173,7 +173,11 @@ $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
                 (new FluxBackendComponent(FluxComponentEnum::TR))
                     ->setContents([
                         (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Lindsey Aminoff'),
-                        (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Paid'),
+                        (new FluxBackendComponent(FluxComponentEnum::TD))
+                            ->setAttribute('variant', 'strong')
+                            ->setContent(
+                                (new FluxBackendComponent(FluxComponentEnum::BADGE))->setContent('Paid')
+                            ),
                     ]),
             ]),
     ]);
@@ -193,6 +197,22 @@ $button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
 ```
 
 Theme files live in your app's `resources/views/_themes/tailwind/` directory (one Blade file per theme group returning a variant array), resolved through the local theme builders and `FluxUITableUtil`.
+
+## Testing
+
+Individual checks:
+
+- `composer analyse` — PHPStan static analysis over `src/`.
+- `composer rector:check` — Rector dry-run over `src/` (use `composer rector` to apply fixes).
+- `composer lint:check` — Pint style check over `src/` (use `composer lint` to fix).
+- `composer test:types` — enforces 100% type coverage.
+- `composer test:unit` — the Pest suite (parallel everywhere except Windows, where it runs serially to avoid file-lock collisions).
+
+Or run the whole gate at once — the same scripts CI executes, in order:
+
+```bash
+composer qa
+```
 
 ## Contributing
 
