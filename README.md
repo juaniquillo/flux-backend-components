@@ -173,7 +173,11 @@ $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
                 (new FluxBackendComponent(FluxComponentEnum::TR))
                     ->setContents([
                         (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Lindsey Aminoff'),
-                        (new FluxBackendComponent(FluxComponentEnum::TD))->setContent('Paid'),
+                        (new FluxBackendComponent(FluxComponentEnum::TD))
+                            ->setAttribute('variant', 'strong')
+                            ->setContent(
+                                (new FluxBackendComponent(FluxComponentEnum::BADGE))->setContent('Paid')
+                            ),
                     ]),
             ]),
     ]);
