@@ -6,7 +6,7 @@
     <a href="https://github.com/juaniquillo/flux-backend-components/actions/workflows/ci.yml"><img alt="CI status (main)" src="https://img.shields.io/github/actions/workflow/status/juaniquillo/flux-backend-components/ci.yml?branch=main&label=CI&style=flat-square"></a>
 </p>
 
-Build [Flux UI](https://fluxui.dev) interfaces from PHP. This package lets you compose Flux components (free edition) in backend code — with content, attributes, and Tailwind themes — and render them anywhere Blade renders.
+Build [Flux UI](https://fluxui.dev) interfaces from PHP. This package lets you compose Flux components (free edition) in backend code with content, attributes, and Tailwind themes, and render them anywhere Blade renders.
 
 ## Requirements
 
@@ -28,19 +28,19 @@ No Tailwind configuration is needed: component styling ships with Flux itself, a
 
 ## Built on Laravel Backend Components
 
-This package is a Flux-flavored adapter over [juaniquillo/laravel-backend-component](https://github.com/juaniquillo/laravel-backend-component) ([Packagist](https://packagist.org/packages/juaniquillo/laravel-backend-component)), which provides the underlying engine: the component model, theme managers, `CellBag`, and the generic `TableUtil`. It is installed automatically as a dependency — no separate setup needed.
+This package is a Flux-flavored adapter over [juaniquillo/laravel-backend-component](https://github.com/juaniquillo/laravel-backend-component) ([Packagist](https://packagist.org/packages/juaniquillo/laravel-backend-component)), which provides the underlying engine: the component model, theme managers, `CellBag`, and the generic `TableUtil`. It is installed automatically as a dependency, no separate setup needed.
 
 What this package adds on top:
 
-- `FluxBackendComponent` — the component class, hardcoded to the `flux::` view context
-- `FluxComponentEnum` — every free Flux component as a typed case (`BUTTON`, `TEXT_INPUT`, `TABLE`, …)
-- `FluxIconEnum` — every icon bundled with Flux as a standalone component name
-- `FluxUITableUtil` — builds complete Flux tables from head/body arrays
-- `FluxComponentBuilder` / `FluxLocalThemeComponentBuilder` — fluent factories, including app-local theme resolution
+- `FluxBackendComponent`: the component class, hardcoded to the `flux::` view context
+- `FluxComponentEnum`: every free Flux component as a typed case (`BUTTON`, `TEXT_INPUT`, `TABLE`, …)
+- `FluxIconEnum`: every icon bundled with Flux as a standalone component name
+- `FluxUITableUtil`: builds complete Flux tables from head/body arrays
+- `FluxComponentBuilder` / `FluxLocalThemeComponentBuilder`: fluent factories, including app-local theme resolution
 
 For the full mechanics (theming file format, serialization, the Blade rendering pipeline, helpers) see the [Laravel Backend Components documentation](https://github.com/juaniquillo/backend-component-docs).
 
-> **Tip — Laravel Boost Skill**
+> **Tip: Laravel Boost Skill**
 > If you use Laravel Boost, install the AI skill:
 > ```bash
 > php artisan boost:add-skill https://github.com/juaniquillo/flux-backend-components
@@ -48,7 +48,7 @@ For the full mechanics (theming file format, serialization, the Blade rendering 
 
 ## Usage
 
-Component props (`variant`, `size`, `sortable`, …) are passed as attributes when scalar, or as props when rich — see the [Flux documentation](https://fluxui.dev) for each component's available props.
+Component props (`variant`, `size`, `sortable`, …) are passed as attributes when scalar, or as props when rich, see the [Flux documentation](https://fluxui.dev) for each component's available props.
 
 ### Components
 
@@ -84,7 +84,7 @@ $card = (new FluxBackendComponent(FluxComponentEnum::CARD))
     ]);
 ```
 
-The enum covers the free Flux set — general components (`CARD`, `BUTTON`, `BADGE`, `LINK`, `SEPARATOR`), layout (`HEADER`, `ASIDE`, `MAIN`, `FOOTER`, `CONTAINER`), forms (`TEXT_INPUT`, `TEXTAREA`, `SELECT`, `CHECKBOX`, `RADIO`, `SWITCH`, `FIELD`, `ERROR`), navigation (`NAVBAR`, `NAVLIST`, `SIDEBAR` and their subcomponents), `TABLE` and friends, `MODAL`, `TOAST`, `TOOLTIP`, and more.
+The enum covers the free Flux set: general components (`CARD`, `BUTTON`, `BADGE`, `LINK`, `SEPARATOR`), layout (`HEADER`, `ASIDE`, `MAIN`, `FOOTER`, `CONTAINER`), forms (`TEXT_INPUT`, `TEXTAREA`, `SELECT`, `CHECKBOX`, `RADIO`, `SWITCH`, `FIELD`, `ERROR`), navigation (`NAVBAR`, `NAVLIST`, `SIDEBAR` and their subcomponents), `TABLE` and friends, `MODAL`, `TOAST`, `TOOLTIP`, and more.
 
 ### Builders
 
@@ -105,7 +105,7 @@ $themed = FluxLocalThemeComponentBuilder::make(FluxComponentEnum::BUTTON)
 
 ### Icons
 
-Every icon bundled with Flux (Heroicons plus Flux's own, e.g. `loading`) is a case on `FluxIconEnum`, usable as a standalone component — the equivalent of `<flux:icon.bolt />`:
+Every icon bundled with Flux (Heroicons plus Flux's own, e.g. `loading`) is a case on `FluxIconEnum`, usable as a standalone component, the equivalent of `<flux:icon.bolt />`:
 
 ```php
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
@@ -121,7 +121,7 @@ For the dynamic form (`<flux:icon name="…">`), use `FluxComponentEnum::ICON` w
 
 ### Props
 
-Scalar values travel as attributes, keeping the base contract intact. Anything richer — booleans, arrays, collections, paginators — travels as props:
+Scalar values travel as attributes, keeping the base contract intact. Anything richer (booleans, arrays, collections, paginators) travels as props:
 
 ```php
 $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
@@ -134,7 +134,7 @@ Props merge into the rendered output (winning over attributes on collision) but 
 
 ### Tables
 
-`FluxUITableUtil` is a helper that builds a complete `<flux:table>` tree from plain head/body arrays — the fastest path for data-driven tables. Cells accept plain values, component instances, `CellBag` objects (for per-cell themes and attributes), or `['content' => …, 'theme' => …, 'attributes' => …]` arrays:
+`FluxUITableUtil` is a helper that builds a complete `<flux:table>` tree from plain head/body arrays, the fastest path for data-driven tables. Cells accept plain values, component instances, `CellBag` objects (for per-cell themes and attributes), or `['content' => …, 'theme' => …, 'attributes' => …]` arrays:
 
 ```php
 use Juaniquillo\BackendComponents\Utils\CellBag;
@@ -161,7 +161,7 @@ $table = FluxUITableUtil::make(
 
 Per-section themes are available via `setTableThemes()`, `setThThemes()`, `setTrThemes()`, and `setTdThemes()`.
 
-For full control, tables can also be composed by hand with `FluxBackendComponent` — the helper above is shorthand for this:
+For full control, tables can also be composed by hand with `FluxBackendComponent`, the helper above is shorthand for this:
 
 ```php
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
@@ -189,7 +189,7 @@ $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
     ]);
 ```
 
-Note the columns go directly inside `THEAD` — it renders its own header row, so no `TR` wrapper is needed there.
+Note the columns go directly inside `THEAD`, it renders its own header row, so no `TR` wrapper is needed there.
 
 Current limitations: per-row `key` values and the table's named `header`/`footer` slots have no builder API yet.
 
@@ -208,13 +208,13 @@ Theme files live in your app's `resources/views/_themes/tailwind/` directory (on
 
 Individual checks:
 
-- `composer analyse` — PHPStan static analysis over `src/`.
-- `composer rector:check` — Rector dry-run over `src/` (use `composer rector` to apply fixes).
-- `composer lint:check` — Pint style check over `src/` (use `composer lint` to fix).
-- `composer test:types` — enforces 100% type coverage.
-- `composer test:unit` — the Pest suite (parallel everywhere except Windows, where it runs serially to avoid file-lock collisions).
+- `composer analyse`: PHPStan static analysis over `src/`.
+- `composer rector:check`: Rector dry-run over `src/` (use `composer rector` to apply fixes).
+- `composer lint:check`: Pint style check over `src/` (use `composer lint` to fix).
+- `composer test:types`: enforces 100% type coverage.
+- `composer test:unit`: the Pest suite (parallel everywhere except Windows, where it runs serially to avoid file-lock collisions).
 
-Or run the whole gate at once — the same scripts CI executes, in order:
+Or run the whole gate at once, the same scripts CI executes, in order:
 
 ```bash
 composer qa
