@@ -36,7 +36,7 @@ What this package adds on top:
 - `FluxComponentEnum`: every free Flux component as a typed case (`BUTTON`, `TEXT_INPUT`, `TABLE`, …)
 - `FluxIconEnum`: every icon bundled with Flux as a standalone component name
 - `FluxUITableUtil`: builds complete Flux tables from head/body arrays
-- `FluxComponentBuilder` / `FluxLocalThemeComponentBuilder`: fluent factories, including app-local theme resolution
+- `FluxComponentFactory` / `FluxLocalThemeComponentFactory`: fluent factories, including app-local theme resolution
 
 For the full mechanics (theming file format, serialization, the Blade rendering pipeline, helpers) see the [Laravel Backend Components documentation](https://github.com/juaniquillo/backend-component-docs).
 
@@ -86,20 +86,20 @@ $card = (new FluxBackendComponent(FluxComponentEnum::CARD))
 
 The enum covers the free Flux set: general components (`CARD`, `BUTTON`, `BADGE`, `LINK`, `SEPARATOR`), layout (`HEADER`, `ASIDE`, `MAIN`, `FOOTER`, `CONTAINER`), forms (`TEXT_INPUT`, `TEXTAREA`, `SELECT`, `CHECKBOX`, `RADIO`, `SWITCH`, `FIELD`, `ERROR`), navigation (`NAVBAR`, `NAVLIST`, `SIDEBAR` and their subcomponents), `TABLE` and friends, `MODAL`, `TOAST`, `TOOLTIP`, and more.
 
-### Builders
+### Factories
 
 Fluent factories are available when you prefer them over `new`:
 
 ```php
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
-use Juaniquillo\FluxBackendComponents\Builders\FluxLocalThemeComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxLocalThemeComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
-$button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+$button = FluxComponentFactory::make(FluxComponentEnum::BUTTON)
     ->setContent('Save changes');
 
 // Resolves themes from your app's views instead of the package defaults.
-$themed = FluxLocalThemeComponentBuilder::make(FluxComponentEnum::BUTTON)
+$themed = FluxLocalThemeComponentFactory::make(FluxComponentEnum::BUTTON)
     ->setTheme('color', 'success');
 ```
 
@@ -191,18 +191,18 @@ $table = (new FluxBackendComponent(FluxComponentEnum::TABLE))
 
 Note the columns go directly inside `THEAD`, it renders its own header row, so no `TR` wrapper is needed there.
 
-Current limitations: per-row `key` values and the table's named `header`/`footer` slots have no builder API yet.
+Current limitations: per-row `key` values and the table's named `header`/`footer` slots have no factory API yet.
 
 ### Themes
 
 Apply Tailwind theme variants with `setTheme()` / `setThemes()`:
 
 ```php
-$button = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+$button = FluxComponentFactory::make(FluxComponentEnum::BUTTON)
     ->setTheme('color', 'success');
 ```
 
-Theme files live in your app's `resources/views/_themes/tailwind/` directory (one Blade file per theme group returning a variant array), resolved through the local theme builders and `FluxUITableUtil`.
+Theme files live in your app's `resources/views/_themes/tailwind/` directory (one Blade file per theme group returning a variant array), resolved through the local theme factories and `FluxUITableUtil`.
 
 ## Testing
 

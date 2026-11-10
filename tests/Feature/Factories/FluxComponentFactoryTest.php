@@ -3,20 +3,20 @@
 declare(strict_types=1);
 
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
-use Juaniquillo\FluxBackendComponents\Builders\FluxComponentBuilder;
-use Juaniquillo\FluxBackendComponents\Builders\FluxLocalThemeComponentBuilder;
+use Juaniquillo\FluxBackendComponents\Factories\FluxComponentFactory;
+use Juaniquillo\FluxBackendComponents\Factories\FluxLocalThemeComponentFactory;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 it('builds a component from the enum', function () {
-    $component = FluxComponentBuilder::make(FluxComponentEnum::BUTTON);
+    $component = FluxComponentFactory::make(FluxComponentEnum::BUTTON);
 
     expect($component)->toBeInstanceOf(FluxBackendComponent::class)
         ->and($component->getName())->toBe('button');
 });
 
-it('resolves local themes with the local theme builder', function () {
-    $component = FluxLocalThemeComponentBuilder::make(FluxComponentEnum::BUTTON);
+it('resolves local themes with the local theme factory', function () {
+    $component = FluxLocalThemeComponentFactory::make(FluxComponentEnum::BUTTON);
 
     expect($component)->toBeInstanceOf(FluxBackendComponent::class)
         ->and($component->getThemeManager())->toBeInstanceOf(LocalThemeManager::class)
@@ -24,7 +24,7 @@ it('resolves local themes with the local theme builder', function () {
 });
 
 it('compiles themes from the app local theme path', function () {
-    $component = FluxLocalThemeComponentBuilder::make(FluxComponentEnum::BUTTON)
+    $component = FluxLocalThemeComponentFactory::make(FluxComponentEnum::BUTTON)
         ->setTheme('color', 'success');
 
     $component->getThemeManager()->setDefaultPath(__DIR__.'/../../fixtures/views/_themes/tailwind');
@@ -32,8 +32,8 @@ it('compiles themes from the app local theme path', function () {
     expect($component->compileTheme())->toBe('text-violet-900');
 });
 
-it('renders a builder component to html', function () {
-    $component = FluxComponentBuilder::make(FluxComponentEnum::BUTTON)
+it('renders a factory component to html', function () {
+    $component = FluxComponentFactory::make(FluxComponentEnum::BUTTON)
         ->setContent('Click me');
 
     $this->blade('{{ $component }}', ['component' => $component])
