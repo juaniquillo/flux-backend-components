@@ -28,7 +28,7 @@ No Tailwind configuration is needed: component styling ships with Flux itself, a
 
 ## Built on Laravel Backend Components
 
-This package is a Flux-flavored adapter over [juaniquillo/laravel-backend-component](https://github.com/juaniquillo/laravel-backend-component) ([Packagist](https://packagist.org/packages/juaniquillo/laravel-backend-component)), which provides the underlying engine: the component model, theme managers, `CellBag`, and the generic `TableUtil`. It is installed automatically as a dependency, no separate setup needed.
+This package is a Flux-flavored adapter over [juaniquillo/laravel-backend-component](https://github.com/juaniquillo/laravel-backend-component) ([Packagist](https://packagist.org/packages/juaniquillo/laravel-backend-component)), which provides the Laravel Blade rendering layer: `DefaultAttributeBag`, `DefaultContentsComponent`, the theme managers, and `CellBag`. Framework-agnostic state (attributes, contents, settings, themes, paths, serialization) lives in [juaniquillo/base-backend-component](https://github.com/juaniquillo/base-backend-component). Both are installed automatically as dependencies, no separate setup needed.
 
 What this package adds on top:
 
