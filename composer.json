@@ -21,7 +21,8 @@
     "require": {
         "php": "^8.3",
         "illuminate/support": "^12.0||^13.0",
-        "juaniquillo/laravel-backend-component": "^0.11.0",
+        "juaniquillo/base-backend-component": "^0.1.0",
+        "juaniquillo/laravel-backend-component": "^0.12.0",
         "livewire/flux": "^2.0"
 },
     "require-dev": {

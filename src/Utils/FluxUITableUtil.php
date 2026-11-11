@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Juaniquillo\FluxBackendComponents\Utils;
 
 use BackedEnum;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
 use Juaniquillo\BackendComponents\Utils\CellBag;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeManager;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 use Juaniquillo\FluxBackendComponents\FluxComponentEnum;
 
 use function Juaniquillo\BackendComponents\isCellBag;
-use function Juaniquillo\BackendComponents\isComponent;
+use function Juaniquillo\BaseBackendComponent\isComponent;
 
 /**
  * Builds a complete Flux table component tree from head/body arrays.

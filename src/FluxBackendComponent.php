@@ -10,27 +10,33 @@ use Illuminate\View\ComponentAttributeBag;
 use Juaniquillo\BackendComponents\Components\DefaultAttributeBag;
 use Juaniquillo\BackendComponents\Concerns\HasContent;
 use Juaniquillo\BackendComponents\Concerns\HasPath;
-use Juaniquillo\BackendComponents\Concerns\HasProps;
 use Juaniquillo\BackendComponents\Concerns\IsBackendComponent;
-use Juaniquillo\BackendComponents\Concerns\IsThemeable;
-use Juaniquillo\BackendComponents\Contracts\AttributeBag;
-use Juaniquillo\BackendComponents\Contracts\BackendComponent;
-use Juaniquillo\BackendComponents\Contracts\ContentComponent;
-use Juaniquillo\BackendComponents\Contracts\PathComponent;
-use Juaniquillo\BackendComponents\Contracts\PropsComponent;
-use Juaniquillo\BackendComponents\Contracts\ThemeComponent;
-use Juaniquillo\BackendComponents\Contracts\ThemeManager;
 use Juaniquillo\BackendComponents\Themes\DefaultThemeManager;
+use Juaniquillo\BaseBackendComponent\Concerns\HasProps;
+use Juaniquillo\BaseBackendComponent\Concerns\HasSettings;
+use Juaniquillo\BaseBackendComponent\Concerns\IsThemeable;
+use Juaniquillo\BaseBackendComponent\Contracts\AttributeBag;
+use Juaniquillo\BaseBackendComponent\Contracts\BackendComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\ContentComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\PathComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\PropsComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\SettingsComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeComponent;
+use Juaniquillo\BaseBackendComponent\Contracts\ThemeManager;
 
-use function Juaniquillo\BackendComponents\isBackedEnum;
+use function Juaniquillo\BaseBackendComponent\isBackedEnum;
 
-final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent, PropsComponent, ThemeComponent
+/**
+ * @phpstan-import-type ComponentArray from BackendComponent
+ */
+final class FluxBackendComponent implements BackendComponent, ContentComponent, Htmlable, PathComponent, PropsComponent, SettingsComponent, ThemeComponent
 {
-    use HasContent,
-        HasPath,
-        HasProps,
-        IsBackendComponent,
-        IsThemeable;
+    use HasContent;
+    use HasPath;
+    use HasProps;
+    use HasSettings;
+    use IsBackendComponent;
+    use IsThemeable;
 
     private const string UTILITY_VIEW = 'backend-component::_utilities.resolve-third-party-component';
 
@@ -63,27 +69,33 @@ final class FluxBackendComponent implements BackendComponent, ContentComponent, 
     public function getAttributeBag(): AttributeBag
     {
         return new DefaultAttributeBag(
-            $this->getAttributes(),
-            $this->processContent(),
-            $this->compileTheme(),
-            $this->getComponentPath(),
+            attributes: $this->getAttributes(),
+            content: $this->processContent(),
+            themes: $this->compileTheme(),
+            path: $this->getComponentPath(),
+            settings: $this->getSettings(),
             props: $this->getProps(),
         );
     }
 
+    /**
+     * @return ComponentArray
+     */
     public function toArray(): array
     {
         return [
             'name' => $this->getName(),
+            'component' => self::class,
             'attributes' => $this->getAttributes(),
-            'content' => $this->processContent()->toArray(),
-            'path' => $this->getComponentPath(),
+            'contents' => $this->processContent()->toArray(),
             'theme' => [
                 'manager' => $this->themeManager::class,
                 'themes' => $this->getThemes(),
                 'path' => $this->themeManager->getDefaultPath(),
                 'realPath' => $this->themeManager->getThemePath(),
             ],
+            'path' => $this->getPathOnly(),
+            'settings' => $this->getSettings(),
         ];
     }
 

@@ -6,9 +6,9 @@ namespace Juaniquillo\FluxBackendComponents\Factories;
 
 use BackedEnum;
 use Illuminate\Contracts\Support\Htmlable;
-use Juaniquillo\BackendComponents\Contracts\CompoundComponent;
 use Juaniquillo\BackendComponents\Contracts\StaticFactory;
 use Juaniquillo\BackendComponents\Themes\LocalThemeManager;
+use Juaniquillo\BaseBackendComponent\Contracts\CompoundComponent;
 use Juaniquillo\FluxBackendComponents\FluxBackendComponent;
 
 class FluxLocalThemeComponentFactory implements StaticFactory
